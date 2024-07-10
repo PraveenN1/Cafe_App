@@ -9,7 +9,7 @@ const port = 5000 || process.env.port;
 
 app.use(cors(
   {
-  origin:["https://cafe-app-frontend-seven.vercel.app/"],
+  origin:["https://cafe-app-frontend-seven.vercel.app"],
   methods:["POST","GET"],
   credentials:true
   }
