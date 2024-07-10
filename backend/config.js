@@ -1,0 +1,1 @@
+export const MONGODB_URL='mongodb+srv://praveenpu46:OkeevL3oH6UYswLb@cafecoffee.83r06s6.mongodb.net/?retryWrites=true&w=majority&appName=CafeCoffee'
