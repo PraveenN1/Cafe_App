@@ -43,7 +43,7 @@ const Home = () => {
         id: order.id
       }));
   
-      const response = await axios.post("http://localhost:5000", {
+      const response = await axios.post("https://cafe-app-backend-nine.vercel.app", {
         orders: orderItems,
         totalPrice,
         gst,
