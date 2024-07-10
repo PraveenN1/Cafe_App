@@ -7,7 +7,13 @@ import { Order } from "./orderModal.js";
 const app = express();
 const port = 5000 || process.env.port;
 
-app.use(cors());
+app.use(cors(
+  {
+  origin:["https://cafe-app-frontend-seven.vercel.app/"],
+  methods:["POST","GET"],
+  credentials:true
+  }
+));
 app.use(express.json());
 
 app.get("/", (req, res) => {
