@@ -8,6 +8,8 @@ import axios from 'axios';
 const Home = () => {
   const { data, loading, orders, setOrders } = useContext(CoffeeContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isOpen,setIsOpen]=useState(false);
+  const [cancelModal,setCancelModal]=useState(false);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -68,22 +70,24 @@ const Home = () => {
     toggleModal();
   };
 
+  const handleCancelOrder=()=>{
+    setOrders([]);
+    setIsModalOpen(!toggleModal);
+  }
+
   return (
-    <div className="mx-10">
-      <div className="flex  flex-col justify-end  border-2 text-nowrap">
-        <input type="search" name="menu" id=""
-          placeholder="Menu"
-          className="border-2 w-auto m-2 p-3 overflow-hidden"
-          
-        />
-        <button className="w-auto m-2 px-4 py-2 border-2" onClick={toggleModal}>
+    <div className="px-10 overflow-hidden bg-black text-white">
+      <div className="flex  flex-row justify-center  text-nowrap overflow-hidden">
+        
+
+        <button className="w-auto rounded-full m-2 px-4 py-2 border-2 hover:bg-amber-600" onClick={toggleModal}>
           Your Orders
         </button>
-        <button className="w-auto m-2 px-4 py-2 border-2">
+        <button className="w-auto rounded-full m-2 px-4 py-2 border-2 hover:bg-amber-600">
           Added Items ({orders.length})
         </button>
       </div>
-      <div className="grid grid-cols-2  md:grid-cols-4 lg:grid-cols-5 gap-4">
+      <div className="grid sm:grid-cols-2  md:grid-cols-4 lg:grid-cols-5 gap-4">
         {loading ? (
           <p>Loading...</p>
         ) : (
@@ -92,21 +96,22 @@ const Home = () => {
           ))
         )}
       </div>
-      <Modal isOpen={isModalOpen} onClose={toggleModal}>
-        <h2 className="text-2xl font-semibold mb-4">Your Orders</h2>
+      <div className="">
+      <Modal isOpen={isModalOpen} onClose={toggleModal} >
+        <h2 className="text-3xl text-black font-semibold mb-4">Your Orders</h2>
         <div className="flex flex-col">
           <table className="w-full text-sm text-left rtl:text-right text-gray-600 dark:text-gray-400">
             <tbody>
               {orders.length > 0 ? (
                 orders.map((order, index) => (
                   <tr key={index} className="mb-2">
-                    <td className="font-semibold text-lg">{order.title}</td>
-                    <td className="font-bold text-right">
+                    <td className="font-semibold text-xl">{order.title}</td>
+                    <td className="font-bold text-lg text-right">
                       Rs {order.price}.00
                     </td>
                     <td>
                       <button
-                        className="w-full text-xl rounded-md"
+                        className="w-full text-3xl rounded-md"
                         onClick={() => cancelOrder(index)}
                       >
                         &times;
@@ -122,18 +127,16 @@ const Home = () => {
               {orders.length > 0 && (
                 <>
                   <tr>
-                    <td className="font-semibold text-lg uppercase">Gst</td>
-                    <td className="font-bold text-right">Rs {gst}</td>
-                    <td></td>
+                    <td className="font-bold text-black text-xl uppercase">Gst</td>
+                    <td className="font-bold text-xl text-right">Rs {gst}</td>
                   </tr>
                   <tr>
-                    <td className="font-semibold text-lg uppercase text-black">
+                    <td className="font-bold text-xl uppercase text-black">
                       Total
                     </td>
-                    <td className="font-bold text-black text-right">
+                    <td className="font-bold text-xl text-black text-right">
                       Rs {finalPrice}
                     </td>
-                    <td></td>
                   </tr>
                 </>
               )}
@@ -142,14 +145,14 @@ const Home = () => {
           {orders.length > 0 && (
             <div className="my-1 flex flex-col gap-1 font-semibold">
               <button
-                className="w-full p-2 bg-yellow-400 rounded-md"
+                className="w-full p-2 bg-yellow-400 hover:bg-yellow-500 rounded-md"
                 onClick={handlePlaceOrder}
               >
                 Place Order
               </button>
               <button
-                className="w-full p-2 bg-red-300 rounded-md"
-                onClick={() => setOrders([])}
+                className="w-full p-2 bg-red-400 hover:bg-red-500 rounded-md"
+                onClick={handleCancelOrder}
               >
                 Cancel Order
               </button>
@@ -157,6 +160,8 @@ const Home = () => {
           )}
         </div>
       </Modal>
+      </div>
+
     </div>
   );
 };
