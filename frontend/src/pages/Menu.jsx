@@ -9,8 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 const Home = () => {
   const { data, loading, orders, setOrders } = useContext(CoffeeContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const [cancelModal, setCancelModal] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");  
 
   const notify = () =>
     toast.success("Order placed successfully!", {
@@ -83,9 +82,25 @@ const Home = () => {
     setIsModalOpen(!toggleModal);
   };
 
+  // Filter the coffee data based on the search query
+  const filteredData = data.filter((coffee) =>
+    coffee.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
-    <div className="mt-16 px-10 overflow-hidden  text-white">
-      <div className="flex mt-5 sm:flex-row justify-center text-nowrap overflow-hidden space-x-4">
+    <div className="mt-16 px-10 overflow-hidden ">
+      <div className="search mt-16 border-2 p-2 w-2/3 mx-auto ">
+        <input
+          type="search"
+          name="search-form"
+          id="search-form"
+          placeholder="Search for your Coffee"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="w-full p-2 rounded-md"
+        />
+      </div>
+      <div className="flex sm:flex-row justify-center text-nowrap overflow-hidden space-x-4 text-white">
         <button
           className="w-auto rounded-full mt-10 px-4 py-2 border-2 bg-black hover:bg-amber-600 hover:font-semibold"
           onClick={toggleModal}
@@ -100,8 +115,8 @@ const Home = () => {
         {loading ? (
           <p>Loading...</p>
         ) : (
-          data.map((coffee, index) => (
-              <CoffeeCard key={index} coffee={coffee} />
+          filteredData.map((coffee, index) => (
+            <CoffeeCard key={index} coffee={coffee} />
           ))
         )}
       </div>
@@ -185,7 +200,6 @@ const Home = () => {
         draggable
         pauseOnHover
         theme="colored"
-        transition:Flip
       />
     </div>
   );
