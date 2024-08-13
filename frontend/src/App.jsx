@@ -1,16 +1,28 @@
 import React from "react";
-import { Route, Routes, BrowserRouter } from "react-router-dom";
-import Header from "./components/Header";
+import { Route, Routes } from "react-router-dom";
 import CoffeeDetails from "./pages/CoffeeDetails";
 import Home from "./pages/Home";
-import Hero from "./components/Hero";
-
+import ScrollToTop from "./components/ScrollTop";
+import Layout from "./components/Layout";
+const LazyMenu = React.lazy(() => import("./pages/Menu"));
 function App() {
   return (
-    < div >
-      <Hero/>
-      <Home/>
-      <CoffeeDetails/>
+    <div>
+      <ScrollToTop />
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="menu"
+            element={
+              <React.Suspense fallback="Loading...">
+                <LazyMenu />
+              </React.Suspense>
+            }
+          />
+          <Route path="coffee-details" element={<CoffeeDetails />} />
+        </Routes>
+      </Layout>
     </div>
   );
 }
