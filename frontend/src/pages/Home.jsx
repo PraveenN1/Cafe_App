@@ -1,195 +1,78 @@
-import React, { useContext, useState } from "react";
-import { CoffeeContext } from "../components/ApifetchExample";
-import CoffeeCard from "../components/CoffeeCard";
-import Modal from "../components/Modal";
-import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Hero from '../components/Hero';
+import Navbar from '../components/Navbar';
 
-import "react-toastify/dist/ReactToastify.css";
-
-const Home = () => {
-  const { data, loading, orders, setOrders } = useContext(CoffeeContext);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const [cancelModal, setCancelModal] = useState(false);
-
-  const notify = () =>
-    toast.success("Order placed successfully!", {
-      position: "top-center",
-    });
-
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
-
-  const totalPrice = orders.reduce((total, order) => total + order.price, 0);
-
-  const gstPrice = () => {
-    if (totalPrice > 0) {
-      const gst = (totalPrice * 0.18) / 10;
-      const gstStr = gst.toString();
-      return Number(gstStr.slice(0, 4));
-    }
-    return 0;
-  };
-
-  const gst = gstPrice();
-  const finalPrice = totalPrice + gst;
-
-  const cancelOrder = (index) => {
-    const updatedOrders = orders.filter(
-      (_, orderIndex) => orderIndex !== index
-    );
-    setOrders(updatedOrders);
-  };
-
-  const placeOrder = async () => {
-    try {
-      const orderItems = orders.map((order) => ({
-        name: order.title,
-        price: order.price,
-        image: order.image,
-        id: order.id,
-      }));
-
-      const response = await axios.post(
-        "https://cafe-app-backend-nine.vercel.app",
-        {
-          orders: orderItems,
-          totalPrice,
-          gst,
-          finalPrice,
-        }
-      );
-      console.log("Order placed:", response.data);
-      setOrders([]);
-    } catch (error) {
-      console.error("Error placing order:", error);
-    }
-  };
-
-  const logOrders = () => {
-    console.log("Current orders:", orders);
-  };
-
-  const handlePlaceOrder = () => {
-    placeOrder();
-    logOrders();
-    toggleModal();
-    notify();
-  };
-
-  const handleCancelOrder = () => {
-    setOrders([]);
-    setIsModalOpen(!toggleModal);
-  };
-
+const HomePage = () => {
   return (
-    <div className="px-10 overflow-hidden bg-black text-white">
-      <div className="flex flex-col sm:flex-row justify-center  text-nowrap overflow-hidden">
-        <button
-          className="w-auto rounded-full m-2 px-4 py-2 border-2 hover:bg-amber-600 hover:text-black hover:font-semibold"
-          onClick={toggleModal}
-        >
-          Your Orders
-        </button>
-        <button className="w-auto rounded-full m-2 px-4 py-2 border-2 hover:bg-amber-600 hover:text-black hover:font-semibold">
-          Added Items ({orders.length})
-        </button>
-      </div>
-      <div className="grid grid-cols-2  md:grid-cols-4 lg:grid-cols-5 gap-4">
-        {loading ? (
-          <p>Loading...</p>
-        ) : (
-          data.map((coffee, index) => (
-            <CoffeeCard key={index} coffee={coffee} />
-          ))
-        )}
-      </div>
-      <div className="">
-        <Modal isOpen={isModalOpen} onClose={toggleModal}>
-          <h2 className="text-3xl text-black font-semibold mb-4">
-            Your Orders
-          </h2>
-          <div className="flex flex-col">
-            <table className="w-full text-sm text-left rtl:text-right text-gray-600 dark:text-gray-400">
-              <tbody>
-                {orders.length > 0 ? (
-                  orders.map((order, index) => (
-                    <tr key={index} className="mb-2">
-                      <td className="font-semibold text-xl">{order.title}</td>
-                      <td className="font-bold text-lg text-right">
-                        Rs {order.price}.00
-                      </td>
-                      <td>
-                        <button
-                          className="w-full text-3xl rounded-md"
-                          onClick={() => cancelOrder(index)}
-                        >
-                          &times;
-                        </button>
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="3">No orders yet.</td>
-                  </tr>
-                )}
-                {orders.length > 0 && (
-                  <>
-                    <tr>
-                      <td className="font-bold text-black text-xl uppercase">
-                        Gst
-                      </td>
-                      <td className="font-bold text-xl text-right">Rs {gst}</td>
-                    </tr>
-                    <tr>
-                      <td className="font-bold text-xl uppercase text-black">
-                        Total
-                      </td>
-                      <td className="font-bold text-xl text-black text-right">
-                        Rs {finalPrice}
-                      </td>
-                    </tr>
-                  </>
-                )}
-              </tbody>
-            </table>
-            {orders.length > 0 && (
-              <div className="my-1 flex flex-col gap-1 font-semibold">
-                <button
-                  className="w-full p-2 bg-yellow-400 hover:bg-yellow-500 rounded-md"
-                  onClick={handlePlaceOrder}
-                >
-                  Place Order
-                </button>
-                <button
-                  className="w-full p-2 bg-red-400 hover:bg-red-500 rounded-md"
-                  onClick={handleCancelOrder}
-                >
-                  Cancel Order
-                </button>
-              </div>
-            )}
+    <div className="w-full min-h-screen bg-slate-100">
+      <Hero/>
+      <section className="container mx-auto my-10 px-4">
+        <h2 className="text-4xl font-bold text-center mb-8">Featured Coffee</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Example Featured Coffee Cards */}
+          <div className="border p-4 rounded-lg bg-white shadow-md">
+            <img
+              src="https://images.unsplash.com/photo-1579992357154-faf4bde95b3d?auto=format&fit=crop&q=80&w=1887&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt="Featured Coffee"
+              className="w-full h-56 object-cover rounded-md"
+            />
+            <h3 className="text-xl font-semibold mt-4">Espresso</h3>
+            <p className="text-gray-600 mt-2">Rich, full-bodied espresso with a smooth finish.</p>
+            <Link
+              to="/menu"
+              className="mt-4 inline-block text-white bg-amber-600 py-2 px-4 rounded-lg"
+            >
+              Order Now
+            </Link>
           </div>
-        </Modal>
-      </div>
-      <ToastContainer
-        position="top-center"
-        autoClose={2000}
-        hideProgressBar
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-        transition:Flip
-      />
+          <div className="border p-4 rounded-lg bg-white shadow-md">
+            <img
+              src="https://images.unsplash.com/photo-1557006021-b85faa2bc5e2?auto=format&fit=crop&q=80&w=1887&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt="Featured Coffee"
+              className="w-full h-56 object-cover "
+            />
+            <h3 className="text-xl font-semibold mt-4">Cappuccino</h3>
+            <p className="text-gray-600 mt-2">A perfect balance of espresso, steamed milk, and foam.</p>
+            <Link
+              to="/menu"
+              className="mt-4 inline-block text-white bg-amber-600 py-2 px-4 rounded-lg"
+            >
+              Order Now
+            </Link>
+          </div>
+          <div className="border p-4 rounded-lg bg-white shadow-md">
+            <img
+              src="https://images.unsplash.com/photo-1561882468-9110e03e0f78?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGxhdHRlfGVufDB8fDB8fHww"
+              alt="Featured Coffee"
+              className="w-full h-56 object-cover rounded-md"
+            />
+            <h3 className="text-xl font-semibold mt-4">Latte</h3>
+            <p className="text-gray-600 mt-2">Smooth, creamy latte with a hint of sweetness.</p>
+            <Link
+              to="/menu"
+              className="mt-4 inline-block text-white bg-amber-600 py-2 px-4 rounded-lg"
+            >
+              Order Now
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Menu Section */}
+      <section className="bg-amber-100 py-10">
+        <div className="container mx-auto text-center">
+          <h2 className="text-4xl font-bold mb-8">Our Menu</h2>
+          <Link
+            to="/menu"
+            className="text-xl text-amber-900 underline hover:text-amber-600 transition"
+          >
+            View Full Menu
+          </Link>
+        </div>
+      </section>
     </div>
   );
 };
 
-export default Home;
+export default HomePage;
