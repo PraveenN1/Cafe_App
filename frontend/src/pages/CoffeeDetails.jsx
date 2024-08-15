@@ -1,8 +1,8 @@
 import React from 'react'
-const coffeedetails = () => {
+const Coffeedetails = () => {
   return (
     <div>coffeedetails</div>
   )
 }
 
-export default coffeedetails
+export default Coffeedetails

@@ -83,7 +83,7 @@ const Home = () => {
   };
 
   // Filter the coffee data based on the search query
-  const filteredData = data.filter((coffee) =>
+  const  filteredData = data.filter((coffee) =>
     coffee.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -120,6 +120,13 @@ const Home = () => {
           ))
         )}
       </div>
+      {/* {
+        filteredData.length==0 &&(
+          <div className="text-4xl mx-auto flex justify-center items-center">
+            No results found
+          </div>
+        )
+      } */}
       <div className="">
         <Modal isOpen={isModalOpen} onClose={toggleModal}>
           <h2 className="text-3xl text-black font-semibold mb-4">
