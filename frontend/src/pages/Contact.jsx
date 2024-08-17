@@ -14,13 +14,19 @@ export default function Contact() {
   };
 
   return (
-    <section className="max-container padding-container mt-28 mb-5 p-5 h-auto flex flex-col md:flex-row gap-8">
+    <section className="mt-28 mb-5 p-5 h-auto flex flex-col xl:flex-row gap-8 justify-center">
       <div className="w-full flex flex-col gap-3 items-center justify-center mb-5 text-[#6b4e34]">
         <h1 className="text-5xl lg:text-7xl font-bold mb-4">Contact Us</h1>
         <p className="text-xl flex items-center gap-1">brewnbrewcoffees@gmail.com</p>
         <p className="text-xl flex items-center gap-2">123-456-789</p>
+        <div className="flex flex-col md:flex-row gap-2 ">
+          <ContactCards title={'Customer Support'} email={'bnb.cs@gmail.com'} description={'Our dedicated customer support team is here to assist you with any inquiries or issues you may have, ensuring a smooth and pleasant experience.'}/>
+          <ContactCards title={'Bulk Orders'} email={'bnb.order@gmail.com'} description={'We offer flexible options for bulk orders, catering to both personal and business needs with competitive pricing and reliable delivery.'}/>
+          <ContactCards title={'Subscription'} 
+          email={'bnb.subs@gmail.com'} description={'Enjoy exclusive benefits and discounts by subscribing to our newsletter, and stay updated with our latest offers and new product launches.'}/>
+        </div>
       </div>
-      <div className="w-full md:w-[90%] lg:w-[50%] shadow-md p-5 rounded-xl border border-[#6b4e34] bg-[#f4ece3]">
+      <div className="w-full md:w-[90%] lg:w-[80%] xl:w-[50%]  shadow-md p-5 rounded-xl border border-[#6b4e34] bg-[#f4ece3] mx-auto">
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
           <div className="flex flex-col gap-2 text-[#6b4e34]">
             <h2 className="text-3xl font-bold">Get in Touch</h2>
@@ -109,5 +115,17 @@ export default function Contact() {
         </form>
       </div>
     </section>
+  );
+}
+
+
+const ContactCards = ({title,email,description})=>{
+
+  return(
+    <div className="container m-2 p-5 space-y-3 flex flex-col text-center text-balance border-2 border-[#6b4e34] shadow-md rounded-lg">
+      <h1 className="font-bold text-2xl">{title}</h1>
+      <p className="font-semibold">{email}</p>
+      <p className="font-light">{description}</p>
+    </div>
   );
 }
