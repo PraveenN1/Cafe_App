@@ -88,7 +88,7 @@ const Home = () => {
   );
 
   return (
-    <div className="mt-16 mx-auto px-10 overflow-hidden">
+    <div className="mt-16 mx-auto overflow-hidden w-[80%]">
       <div className="search mt-16 border-2 p-2 w-2/3 mx-auto rounded-full active:bg-slate-50 shadow-lg">
         <input
           type="search"
@@ -111,7 +111,7 @@ const Home = () => {
           Added Items ({orders.length})
         </button>
       </div>
-      <div className="grid grid-cols-2 m-5  md:grid-cols-3 lg:grid-cols-5 gap-4 container mx-auto">
+      <div className="grid grid-cols-2 m-5  md:grid-cols-3 lg:grid-cols-4 gap-4 container mx-auto">
         {loading ? (
           <p>Loading...</p>
         ) : (

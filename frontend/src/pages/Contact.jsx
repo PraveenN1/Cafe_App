@@ -14,7 +14,7 @@ export default function Contact() {
   };
 
   return (
-    <section className="mt-28 mb-5 p-5 h-auto flex flex-col xl:flex-row gap-8 justify-center">
+    <section className="mt-28 mb-5 mx-10 h-auto flex flex-col xl:flex-row gap-8 justify-center">
       <div className="w-full flex flex-col gap-3 items-center justify-center mb-5 text-[#6b4e34]">
         <h1 className="text-5xl lg:text-7xl font-bold mb-4">Contact Us</h1>
         <p className="text-xl flex items-center gap-1">brewnbrewcoffees@gmail.com</p>
