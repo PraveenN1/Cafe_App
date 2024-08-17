@@ -4,6 +4,9 @@ import CoffeeDetails from "./pages/CoffeeDetails";
 import Home from "./pages/Home";
 import ScrollToTop from "./components/ScrollTop";
 import Layout from "./components/Layout";
+import Contact from "./pages/Contact";
+import About from "./pages/About";
+// import { About } from "./pages/About";
 const LazyMenu = React.lazy(() => import("./pages/Menu"));
 function App() {
   return (
@@ -21,6 +24,8 @@ function App() {
             }
           />
           <Route path="coffee-details" element={<CoffeeDetails />} />
+          <Route path="about" element={<About />} />
+          <Route path="contact" element={<Contact />} />
         </Routes>
       </Layout>
     </div>
