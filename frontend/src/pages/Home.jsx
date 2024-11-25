@@ -1,13 +1,15 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Hero from '../components/Hero';
+import React from "react";
+import { Link } from "react-router-dom";
+import Hero from "../components/Hero";
 
 const HomePage = () => {
   return (
     <div className="w-full min-h-screen bg-slate-100">
-      <Hero/>
-      <section className="container mx-auto my-10 px-4">
-        <h2 className="text-4xl font-bold text-center mb-8">Featured Coffees</h2>
+      <Hero />
+      <section className="container mx-auto my-10 px-4 ">
+        <h2 className="text-4xl font-bold text-center mb-8">
+          Featured Coffees
+        </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Example Featured Coffee Cards */}
           <div className="border p-4 rounded-lg bg-white shadow-md">
@@ -17,16 +19,17 @@ const HomePage = () => {
               className="w-full h-56 object-cover rounded-md"
             />
             <h3 className="text-xl font-semibold mt-4">Espresso</h3>
-            <p className="text-gray-600 mt-2">Rich, full-bodied espresso with a smooth finish.</p>
-            <div className=''>
+            <p className="text-gray-600 mt-2">
+              Rich, full-bodied espresso with a smooth finish.
+            </p>
+            <div className="">
               <Link
                 to="/menu"
-                className="mt-4 inline-block text-white bg-amber-600 py-2 px-4 rounded-lg"
+                className="mt-4 inline-block  text-white bg-amber-600 py-2 px-4 rounded-lg"
               >
                 Order Now
               </Link>
             </div>
-            
           </div>
           <div className="border p-4 rounded-lg bg-white shadow-md">
             <img
@@ -35,14 +38,16 @@ const HomePage = () => {
               className="w-full h-56 object-cover rounded-md"
             />
             <h3 className="text-xl font-semibold mt-4">Cappuccino</h3>
-            <p className="text-gray-600 mt-2">A perfect balance of espresso, steamed milk, and foam.</p>
+            <p className="text-gray-600 mt-2">
+              A perfect balance of espresso, steamed milk, and foam.
+            </p>
             <div>
-            <Link
-              to="/menu"
-              className="mt-4 inline-block text-white bg-amber-600 py-2 px-4 rounded-lg"
-            >
-              Order Now
-            </Link>
+              <Link
+                to="/menu"
+                className="mt-4 inline-block text-white bg-amber-600 py-2 px-4 rounded-lg"
+              >
+                Order Now
+              </Link>
             </div>
           </div>
           <div className="border p-4 rounded-lg bg-white shadow-md">
@@ -52,7 +57,9 @@ const HomePage = () => {
               className="w-full h-56 object-cover rounded-md"
             />
             <h3 className="text-xl font-semibold mt-4">Latte</h3>
-            <p className="text-gray-600 mt-2">Smooth, creamy latte with a hint of sweetness.</p>
+            <p className="text-gray-600 mt-2">
+              Smooth, creamy latte with a hint of sweetness.
+            </p>
             <div>
               <Link
                 to="/menu"

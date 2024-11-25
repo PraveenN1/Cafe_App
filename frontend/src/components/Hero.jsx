@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const Hero = () => {
   return (
-    <div className="relative overflow-hidden mt-10 h-[28rem] md:h-[36rem] lg:h-[48rem]">
+    <div className="relative overflow-hidden mt-10 h-[28rem] md:h-[36rem]">
       {/* Hero Image */}
       <motion.div
         initial={{ scale: 1.2 }}
@@ -35,7 +35,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.5, delay: 1 }}
-          className="mt-4 text-lg sm:text-xl md:text-2xl lg:text-3xl text-white"
+          className="mt-4 text-lg sm:text-xl md:text-2xl font-serif lg:text-3xl text-white"
         >
           Discover the perfect blend of rich flavors and cozy ambiance. At Bean &
           Brew, we craft every cup with care and passion, inviting you to savor
@@ -48,7 +48,7 @@ const Hero = () => {
             transition={{ duration: 1.5, delay: 1.5 }}
             whileHover={{ scale: 1.1, backgroundColor: "#f59e0b" }} // Tailwind's amber-500 color
             whileTap={{ scale: 0.95 }}
-            className="mt-8 px-6 py-3 text-lg font-semibold text-black bg-amber-400 rounded-full shadow-lg hover:bg-amber-500"
+            className="mt-8 px-6 py-3 text-lg font-medium text-black bg-amber-400 rounded-full shadow-lg hover:bg-amber-500"
           >
             Learn More
           </motion.button>
