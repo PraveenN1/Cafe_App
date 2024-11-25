@@ -1,4 +1,3 @@
-// Modal.js
 import React from "react";
 
 const Modal = ({ isOpen, onClose, children }) => {
@@ -6,9 +5,9 @@ const Modal = ({ isOpen, onClose, children }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-1/2 max-w-lg">
+     <div className="bg-white rounded-lg shadow-lg w-1/2 max-w-2xl p-6 relative overflow-x-auto h-80 scrollbar-custom">
         <button
-          className="absolute top-5 right-5 text-gray-100 hover:text-gray-500 text-5xl"
+          className="absolute top-4 right-4 text-gray-400 hover:text-black text-2xl font-bold"
           onClick={onClose}
         >
           &times;
