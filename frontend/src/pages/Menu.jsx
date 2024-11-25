@@ -6,15 +6,13 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Home = () => {
+const Menu = () => {
   const { data, loading, orders, setOrders } = useContext(CoffeeContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");  
+  const [searchQuery, setSearchQuery] = useState("");
 
   const notify = () =>
-    toast.success("Order placed successfully!", {
-      position: "top-center",
-    });
+    toast.success("Order placed successfully!", { position: "top-center" });
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -22,22 +20,12 @@ const Home = () => {
 
   const totalPrice = orders.reduce((total, order) => total + order.price, 0);
 
-  const gstPrice = () => {
-    if (totalPrice > 0) {
-      const gst = (totalPrice * 0.18) / 10;
-      const gstStr = gst.toString();
-      return Number(gstStr.slice(0, 4));
-    }
-    return 0;
-  };
-
+  const gstPrice = () => (totalPrice > 0 ? parseFloat((totalPrice * 0.18).toFixed(2)) : 0);
   const gst = gstPrice();
   const finalPrice = totalPrice + gst;
 
   const cancelOrder = (index) => {
-    const updatedOrders = orders.filter(
-      (_, orderIndex) => orderIndex !== index
-    );
+    const updatedOrders = orders.filter((_, orderIndex) => orderIndex !== index);
     setOrders(updatedOrders);
   };
 
@@ -50,15 +38,13 @@ const Home = () => {
         id: order.id,
       }));
 
-      const response = await axios.post(
-        "https://cafe-app-backend-nine.vercel.app",
-        {
-          orders: orderItems,
-          totalPrice,
-          gst,
-          finalPrice,
-        }
-      );
+      const response = await axios.post("https://cafe-app-backend-nine.vercel.app", {
+        orders: orderItems,
+        totalPrice,
+        gst,
+        finalPrice,
+      });
+
       console.log("Order placed:", response.data);
       setOrders([]);
     } catch (error) {
@@ -66,13 +52,8 @@ const Home = () => {
     }
   };
 
-  const logOrders = () => {
-    console.log("Current orders:", orders);
-  };
-
   const handlePlaceOrder = () => {
     placeOrder();
-    logOrders();
     toggleModal();
     notify();
   };
@@ -82,7 +63,6 @@ const Home = () => {
     setIsModalOpen(false);
   };
 
-  // Filter the coffee data based on the search query
   const filteredData = data.filter((coffee) =>
     coffee.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -97,7 +77,7 @@ const Home = () => {
           placeholder="Search for your Coffee"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full p-2 outline-none active:bg-slate-50 "
+          className="w-full p-2 outline-none active:bg-slate-50"
         />
       </div>
       <div className="mx-auto flex sm:flex-row justify-center text-nowrap overflow-hidden space-x-4 text-white">
@@ -111,19 +91,21 @@ const Home = () => {
           Added Items ({orders.length})
         </button>
       </div>
-      <div className="grid grid-cols-2 m-5  md:grid-cols-3 lg:grid-cols-4 gap-4 container mx-auto">
+      <div className="grid grid-cols-2 m-5 md:grid-cols-3 lg:grid-cols-4 gap-4 container mx-auto">
         {loading ? (
           <p>Loading...</p>
         ) : (
           filteredData.map((coffee, index) => (
-            <CoffeeCard key={index} coffee={coffee} />
+            <CoffeeCard
+              key={index}
+              coffee={coffee}
+              orderCount={orders.filter((order) => order.id === coffee.id).length}
+            />
           ))
         )}
       </div>
       <Modal isOpen={isModalOpen} onClose={toggleModal}>
-        <h2 className="text-3xl text-black font-semibold mb-4">
-          Your Orders
-        </h2>
+        <h2 className="text-3xl text-black font-semibold mb-4">Your Orders</h2>
         <div className="flex flex-col">
           <table className="w-full text-sm text-left rtl:text-right text-gray-600 dark:text-gray-400">
             <tbody>
@@ -131,9 +113,7 @@ const Home = () => {
                 orders.map((order, index) => (
                   <tr key={index} className="mb-2">
                     <td className="font-semibold text-xl">{order.title}</td>
-                    <td className="font-bold text-lg text-right">
-                      Rs {order.price}.00
-                    </td>
+                    <td className="font-bold text-lg text-right">Rs {order.price}.00</td>
                     <td>
                       <button
                         className="w-full text-3xl rounded-md"
@@ -152,15 +132,11 @@ const Home = () => {
               {orders.length > 0 && (
                 <>
                   <tr>
-                    <td className="font-bold text-black text-xl uppercase">
-                      Gst
-                    </td>
+                    <td className="font-bold text-black text-xl uppercase">Gst</td>
                     <td className="font-bold text-xl text-right">Rs {gst}</td>
                   </tr>
                   <tr>
-                    <td className="font-bold text-xl uppercase text-black">
-                      Total
-                    </td>
+                    <td className="font-bold text-xl uppercase text-black">Total</td>
                     <td className="font-bold text-xl text-black text-right">
                       Rs {finalPrice}
                     </td>
@@ -172,8 +148,11 @@ const Home = () => {
           {orders.length > 0 && (
             <div className="my-1 flex flex-col gap-1 font-semibold">
               <button
-                className="w-full p-2 bg-yellow-400 hover:bg-yellow-500 rounded-md"
+                className={`w-full p-2 ${
+                  orders.length ? "bg-yellow-400 hover:bg-yellow-500" : "bg-gray-300"
+                } rounded-md`}
                 onClick={handlePlaceOrder}
+                disabled={!orders.length}
               >
                 Place Order
               </button>
@@ -187,20 +166,9 @@ const Home = () => {
           )}
         </div>
       </Modal>
-      <ToastContainer
-        position="top-center"
-        autoClose={2000}
-        hideProgressBar
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
+      <ToastContainer position="top-center" autoClose={2000} hideProgressBar theme="colored" />
     </div>
   );
 };
 
-export default Home;
+export default Menu;

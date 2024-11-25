@@ -1,21 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { useInView } from "react-intersection-observer";
 import { motion } from "framer-motion";
 import { CoffeeContext } from "./ApifetchExample";
 
-const CoffeeCard = ({ coffee }) => {
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+const CoffeeCard = ({ coffee, orderCount }) => {
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
   const { title, image, price } = coffee;
   const { addOrder } = useContext(CoffeeContext);
-  const [toggleClick, setToggleClick] = useState(0);
 
-  const handleOrder = () => {
-    addOrder(coffee);
-    setToggleClick(toggleClick + 1);
-  };
+  const handleOrder = () => addOrder(coffee);
 
   return (
     <motion.section
@@ -38,14 +31,14 @@ const CoffeeCard = ({ coffee }) => {
             {title}
           </h1>
           <div className="flex w-full gap-2 flex-col sm:flex-row">
-            <button className="flex-1 h-12 rounded-full font-semibold text-lg border-2 border-am hover:bg-amber-300 transition-colors duration-200">
+            <button className="flex-1 h-12 rounded-full font-semibold text-lg border-2 hover:bg-amber-300 transition-colors duration-200">
               Rs {price}
             </button>
             <button
               className="flex-1 h-12 rounded-full font-semibold text-lg text-white bg-amber-600 hover:bg-amber-700 transition-colors duration-200"
               onClick={handleOrder}
             >
-              {toggleClick > 0 ? `ADD ${toggleClick} ` : "ADD"}
+              {orderCount > 0 ? `ADD ${orderCount}` : "ADD"}
             </button>
           </div>
         </div>
