@@ -26,7 +26,7 @@ const Hero = () => {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.5, delay: 0.5 }}
-        className="absolute top-1/4 sm:top-1/3 md:top-1/4 left-5 sm:left-10 md:left-16 lg:left-24 px-6 text-center"
+        className="absolute top-1/4 sm:top-1/3 md:top-1/4 text-center left-0"
       >
         <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-serif bg-clip-text text-transparent bg-gradient-to-r from-amber-300 to-amber-500">
           Bean & Brew
@@ -35,7 +35,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.5, delay: 1 }}
-          className="mt-4 text-lg sm:text-xl md:text-2xl font-serif lg:text-3xl text-white"
+          className="mt-4 text-lg md:text-xl font-serif lg:text-2xl text-white text-balance"
         >
           Discover the perfect blend of rich flavors and cozy ambiance. At Bean &
           Brew, we craft every cup with care and passion, inviting you to savor

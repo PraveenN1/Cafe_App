@@ -16,7 +16,7 @@ const CoffeeCard = ({ coffee, orderCount }) => {
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : 50 }}
       transition={{ duration: 0.5 }}
-      className="flex flex-col items-center p-2 rounded-lg space-y-6 border-2 shadow-md hover:shadow-2xl transition-shadow duration-300 ease-in-out"
+      className="card-component flex flex-col items-center p-2 rounded-lg space-y-6 border-2 shadow-md hover:shadow-2xl transition-shadow duration-300 ease-in-out"
     >
       {inView ? (
         <div className="flex flex-col items-center space-y-4 text-black">
