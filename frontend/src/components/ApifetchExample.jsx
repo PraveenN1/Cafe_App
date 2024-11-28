@@ -14,6 +14,7 @@ const ApifetchProvider = ({ children }) => {
     const localData = localStorage.getItem("orders");
     return localData ? JSON.parse(localData) : [];
   });
+  const [isLogin,setIsLogin]=useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,7 +49,7 @@ const ApifetchProvider = ({ children }) => {
     setOrders((prev) => [...prev, order]);
   };
 
-  const value = { data, error, loading, orders, setOrders, addOrder };
+  const value = { data, error, loading, orders,isLogin, setOrders, addOrder,setIsLogin };
 
   return (
     <CoffeeContext.Provider value={value}>{children}</CoffeeContext.Provider>

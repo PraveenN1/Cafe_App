@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom'; // Use NavLink instead of Link
 import { FiMenu, FiX } from 'react-icons/fi';
 import { motion } from 'framer-motion';
+import { CoffeeContext } from './ApifetchExample';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const {isLogin,setIsLogin} = useContext(CoffeeContext);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -50,6 +52,24 @@ const Navbar = () => {
           >
             Contact
           </NavLink>
+          {
+            !isLogin?(
+              <NavLink 
+            to="/login" 
+            className='hover:text-amber-500 transition-colors duration-300 absolute top-7 right-32 bg-black px-5 py-2 rounded-lg text-white'
+          >
+            Login
+          </NavLink>
+            ):(
+              <button 
+            onClick={()=>setIsLogin(!isLogin)}
+            className='hover:text-amber-500 transition-colors duration-300 absolute top-7 right-32 bg-black px-5 py-2 rounded-lg text-white'
+          >
+            Log out
+          </button>
+            )
+          }
+          
         </div>
         <div className="md:hidden absolute right-5">
           <button onClick={toggleMenu}>
@@ -97,6 +117,12 @@ const Navbar = () => {
             }
           >
             Contact
+          </NavLink>
+          <NavLink 
+            to="/login" 
+            className='hover:text-amber-500 transition-colors duration-300 absolute top-3 right-16 bg-black px-5 py-2 rounded-lg text-white'
+          >
+            Login
           </NavLink>
         </motion.div>
       )}
