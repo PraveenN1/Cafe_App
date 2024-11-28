@@ -14,10 +14,13 @@ const app = express();
 const port = 5000 || process.env.port;
 dotenv.config();
 
+const jwtSecretKey = process.env.JWT_SECRET;
+console.log(jwtSecretKey); // Test the variable
 
 app.use(cors(
   {
   origin:["https://cafe-app-frontend-seven.vercel.app"],
+  // origin:["http://localhost:5173"],
   methods:["POST","GET"],
   credentials:true
   }
