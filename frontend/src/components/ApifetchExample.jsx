@@ -14,7 +14,15 @@ const ApifetchProvider = ({ children }) => {
     const localData = localStorage.getItem("orders");
     return localData ? JSON.parse(localData) : [];
   });
-  const [isLogin,setIsLogin]=useState(false);
+  const [isLogin, setIsLogin] = useState(() => {
+    const savedLogin = localStorage.getItem("isLogin");
+    return savedLogin ? JSON.parse(savedLogin) : false;
+  });
+
+  const [isAdmin, setIsAdmin] = useState(() => {
+    const savedAdmin = localStorage.getItem("isAdmin");
+    return savedAdmin ? JSON.parse(savedAdmin) : false;
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,17 +48,41 @@ const ApifetchProvider = ({ children }) => {
     fetchData();
   }, []);
 
-  // Sync orders to localStorage
   useEffect(() => {
     localStorage.setItem("orders", JSON.stringify(orders));
   }, [orders]);
+  useEffect(() => {
+    localStorage.setItem("isLogin", JSON.stringify(isLogin));
+  }, [isLogin]);
+  useEffect(() => {
+    localStorage.setItem("isAdmin", JSON.stringify(isAdmin));
+  }, [isAdmin]);
+
+  const logout = () => {
+    setIsLogin(false);
+    setIsAdmin(false);
+    localStorage.removeItem("isLogin");
+    localStorage.removeItem("isAdmin");
+    // localStorage.removeItem("token");
+  };
 
   const addOrder = (order) => {
     setOrders((prev) => [...prev, order]);
   };
 
-  const value = { data, error, loading, orders,isLogin, setOrders, addOrder,setIsLogin };
-
+  const value = {
+    data,
+    error,
+    loading,
+    orders,
+    isLogin,
+    isAdmin,
+    setOrders,
+    addOrder,
+    setIsLogin,
+    setIsAdmin,
+    logout,
+  };
   return (
     <CoffeeContext.Provider value={value}>{children}</CoffeeContext.Provider>
   );
