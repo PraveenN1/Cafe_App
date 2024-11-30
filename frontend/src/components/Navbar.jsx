@@ -6,14 +6,18 @@ import { CoffeeContext } from "./ApifetchExample";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { isLogin, setIsLogin, isAdmin } = useContext(CoffeeContext);
+  const { isLogin, setIsLogin, isAdmin ,setIsAdmin} = useContext(CoffeeContext);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
   const handleLogout = () => {
-    setIsLogin(false);
-    setIsOpen(false); // Close menu on logout
+    setIsLogin(false); 
+    setIsAdmin(false); 
+    localStorage.removeItem("isLogin");
+    localStorage.removeItem("isAdmin"); 
+    navigate("/"); 
   };
+  
 
   return (
     <nav className="bg-white shadow-md fixed w-full z-50">

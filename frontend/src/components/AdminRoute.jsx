@@ -4,10 +4,16 @@ import { Navigate } from 'react-router-dom'
 
 const AdminRoute = ({children}) => {
 
-  const {isAdmin}=useContext(CoffeeContext);
-    return (
-    isAdmin?children:<Navigate to="/login"/>
-  );
+  const {isAdmin ,isLogin}=useContext(CoffeeContext);
+  
+  if(!isLogin){
+    return <Navigate to="/login"/>
+  }
+  if(!isAdmin){
+    return <Navigate to="/"/>
+  }
+  return children;
+  
 }
 
 export default AdminRoute

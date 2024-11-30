@@ -48,7 +48,7 @@ function App() {
             <Route path="admin/dashboard" element={
               <AdminRoute>
               <AdminDashboard />
-              </AdminRoute>
+              </AdminRoute> 
               } />
           </Routes>
         </Layout>
