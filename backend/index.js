@@ -180,7 +180,7 @@ mongoose
   .then(() => {
     console.log("Connected to MongoDB");
     app.listen(port, () => {
-      console.log(`Server running on port ${port}`);
+      console.log("Server running successfully!");
     });
   })
   .catch((error) => console.error(error));
