@@ -95,8 +95,8 @@ const Login = () => {
         </div>
       </div>
       <div className="mt-4">
-        <Link to="/guest-user" className="text-sm text-amber-500 hover:underline">
-          Login as Guest User
+        <Link to="/admin-login" className="text-sm text-amber-500 hover:underline">
+          Login as Admin
         </Link>
       </div>
     </form>
