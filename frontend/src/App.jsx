@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
+import AdminRoute from "./components/AdminRoute";
 
 const LazyMenu = React.lazy(() => import("./pages/Menu"));
 
@@ -45,9 +46,9 @@ function App() {
             <Route path="about" element={<About />} />
             <Route path="contact" element={<Contact />} />
             <Route path="admin/dashboard" element={
-              
+              <AdminRoute>
               <AdminDashboard />
-              
+              </AdminRoute>
               } />
           </Routes>
         </Layout>

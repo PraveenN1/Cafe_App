@@ -10,4 +10,4 @@ const AdminRoute = ({children}) => {
   );
 }
 
-export default AdminDashboar
+export default AdminRoute
