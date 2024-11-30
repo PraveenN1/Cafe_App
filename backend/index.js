@@ -16,7 +16,6 @@ const port = 5000 || process.env.port;
 dotenv.config();
 
 const jwtSecretKey = process.env.JWT_SECRET;
-console.log(jwtSecretKey); // Test the variable
 
 app.use(cors(
   {
@@ -148,7 +147,7 @@ app.get("/admin/dashboard", verifyAdminToken, (req, res) => {
 app.get("/admin/dashboard/orders",async(req,res)=>{
   try{
     const orders=await Order.find().sort({createdAt:-1});
-    console.log(orders);
+    // console.log(orders);
     res.status(200).json(orders);
   }catch(error){
     res.status(500).json({message:'Failed to fetch orders',error});
