@@ -11,8 +11,11 @@ const Menu = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const notify = () =>
+  const notifySuccess = () =>
     toast.success("Order placed successfully!", { position: "top-center" });
+  
+  const notifyError = () =>
+    toast.error("Error placing order! Check your internet connection", { position: "top-center" });
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -54,15 +57,17 @@ const Menu = () => {
 
       console.log("Order placed:", response.data);
       setOrders([]);
+      notifySuccess();
     } catch (error) {
       console.error("Error placing order:", error);
+      notifyError();
     }
   };
 
   const handlePlaceOrder = () => {
     placeOrder();
     toggleModal();
-    notify();
+    // notify();
   };
 
   const handleCancelOrder = () => {
