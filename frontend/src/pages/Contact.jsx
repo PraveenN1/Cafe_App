@@ -20,20 +20,29 @@ export default function Contact() {
 
   const onSubmit = async (data) => {
     console.log(data);
-    notify();
+    // notifySuccess();
     try {
       const response = await axios.post("https://cafe-app-backend-nine.vercel.app/contact", data);
       // const response = await axios.post("http://localhost:5000/contact", data);
       console.log(response.data);
+      notifySuccess();
     } catch (error) {
       setError(
         error.response?.data?.message || "Something went wrong. Try again."
       );
+      isSubmitSuccessful=false;
+      notifyError();
+    }finally{
+      notifyError();
     }
   };
 
-  const notify=()=>{
+  const notifySuccess=()=>{
     toast.success("Thank you, we will let you know soon");
+  }
+
+  const notifyError=()=>{
+    toast.error("Error submitting your response");
   }
 
   useEffect(()=>{
