@@ -1,20 +1,26 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { ToastContainer,toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Contact() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors ,isSubmitting,isSubmitted,isSubmitSuccessful,submitCount},
+    reset,
+    
   } = useForm();
 
   const [error, setError] = useState(null);
 
+  console.log({isSubmitting,isSubmitted,isSubmitSuccessful ,submitCount,});
+
   const onSubmit = async (data) => {
     console.log(data);
-
+    notify();
     try {
       const response = await axios.post("https://cafe-app-backend-nine.vercel.app/contact", data);
       // const response = await axios.post("http://localhost:5000/contact", data);
@@ -25,6 +31,16 @@ export default function Contact() {
       );
     }
   };
+
+  const notify=()=>{
+    toast.success("Thank you, we will let you know soon");
+  }
+
+  useEffect(()=>{
+    if(isSubmitSuccessful){
+      reset();
+    }
+  },[isSubmitSuccessful,reset]);
 
   return (
     <section className="mt-28 mb-5 mx-10 h-auto flex flex-col xl:flex-row gap-8 justify-center">
@@ -121,8 +137,8 @@ export default function Contact() {
                   pattern: {
                     value: /^[\w-]+(?:\.[\w-]+)*@(?:[\w-]+\.)+[a-zA-Z]{2,}$/,
                     message: "Invalid Email Format",
-                  },
-                })}
+                  }   
+              })}
                 className="p-2 rounded-md w-full border border-[#6b4e34] bg-[#ffffff]"
                 placeholder="Your email"
               />
@@ -174,6 +190,7 @@ export default function Contact() {
           <div className="flex flex-col items-center gap-4">
             <button
               type="submit"
+              disabled={isSubmitting}
               className="w-full bg-amber-600 p-2 rounded-md text-white hover:bg-amber-700"
             >
               Submit
@@ -186,6 +203,11 @@ export default function Contact() {
           </div>
         </form>
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        theme="colored"
+      />
     </section>
   );
 }
