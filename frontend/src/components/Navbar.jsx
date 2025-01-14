@@ -31,7 +31,7 @@ const Navbar = () => {
         </NavLink>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-8 text-xl font-semibold">
+        <div className="hidden md:flex space-x-8 items-center text-xl font-semibold">
           {[
             { to: "/", label: "Home" },
             { to: "/menu", label: "Menu" },
@@ -112,7 +112,7 @@ const Navbar = () => {
               onClick={() => setIsOpen(false)} // Close menu on link click
               className={({ isActive }) =>
                 isActive
-                  ? "block border-b-4 border-amber-600"
+                  ? "inline-block border-b-4 border-amber-600"
                   : "block hover:text-amber-600 transition-colors duration-300"
               }
             >
