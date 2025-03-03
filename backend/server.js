@@ -17,14 +17,13 @@ dotenv.config();
 
 const jwtSecretKey = process.env.JWT_SECRET;
 
-app.use(cors(
-  {
-  origin:["https://cafe-app-frontend-seven.vercel.app"],
-  //origin:["http://localhost:5173"],
-  methods:["POST","GET"],
-  credentials:true
-  }
-));
+app.use(cors({
+  origin: ["https://cafe-app-frontend-seven.vercel.app"],
+  methods: ["POST", "GET"],
+  credentials: true,
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
+
 app.use(express.json());
 
 app.get("/", (req, res) => {
