@@ -19,8 +19,8 @@ const jwtSecretKey = process.env.JWT_SECRET;
 
 app.use(cors(
   {
-  // origin:["https://cafe-app-frontend-seven.vercel.app"],
-  origin:["http://localhost:5173"],
+  origin:["https://cafe-app-frontend-seven.vercel.app"],
+  //origin:["http://localhost:5173"],
   methods:["POST","GET"],
   credentials:true
   }
