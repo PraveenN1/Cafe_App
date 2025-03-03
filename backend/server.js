@@ -9,37 +9,22 @@ import { MONGODB_URL } from "./config.js";
 import { Order } from "./orderModal.js";  
 import { User } from "./userModal.js";
 import { UserResponse } from "./userRespModel.js";
-import { ADMIN_USERNAME, ADMIN_PASSWORD_HASH } from "./adminDetails.js";
+import { ADMIN_USERNAME,ADMIN_PASSWORD_HASH} from "./adminDetails.js";
 
-dotenv.config();
 const app = express();
-const port = process.env.PORT || 5000;
+const port = 5000 || process.env.port;
+dotenv.config();
+
 const jwtSecretKey = process.env.JWT_SECRET;
 
-// ✅ Fix: CORS Configuration
-app.use(cors({
-  origin: "https://cafe-app-frontend-seven.vercel.app",
-  methods: ["POST", "GET", "OPTIONS"],
-  credentials: true
-}));
-
-app.use(express.json());
-
-// ✅ Fix: Middleware to Add CORS Headers to All Responses
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://cafe-app-frontend-seven.vercel.app");
-  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.header("Access-Control-Allow-Credentials", "true");
-  next();
-});
-
-// ✅ Fix: Handle Preflight Requests
-app.options("*", (req, res) => res.sendStatus(204));
-
-// Start the server
-app.listen(5000, () => console.log("Server running on port 5000"));
-
+app.use(cors(
+  {
+  origin:["https://cafe-app-frontend-seven.vercel.app"],
+  // origin:["http://localhost:5173"],
+  methods:["POST","GET"],
+  credentials:true
+  }
+));
 app.use(express.json());
 
 app.get("/", (req, res) => {
