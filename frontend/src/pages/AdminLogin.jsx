@@ -23,7 +23,7 @@ const AdminLogin = () => {
 
     try {
       setLoading(true);
-      const response = await axios.post("https://cafe-app-backend-nine.vercel.app/login", { username, password });
+      const response = await axios.post("https://cafe-app-backend-nine.vercel.app/admin-login", { username, password });
       // const response = await axios.post("http://localhost:5000/admin-login", { username, password });
       setLoading(false);
       localStorage.setItem("token", response.data.token);
