@@ -6,10 +6,11 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 import { MONGODB_URL } from "./config.js";
-import { Order } from "./orderModal.js";  
-import { User } from "./userModal.js";
-import { UserResponse } from "./userRespModel.js";
+import { Order } from "./models/orderModel.js";  
+import { User } from "./models/userModel.js";
+import { UserResponse } from "./models/userRespModel.js";
 import { ADMIN_USERNAME,ADMIN_PASSWORD_HASH} from "./adminDetails.js";
+import { verifyAdminToken } from "./middlewares/verifyAdminToken.js";
 
 const app = express();
 const port = 5000 || process.env.port;
@@ -108,7 +109,7 @@ app.post("/contact", async (req, res) => {
   try {
     const { firstname, lastname, email, phone, message } = req.body;
     
-    if (!firstname || !lastname || !email || !message) {
+    if (!firstname || !lastname || !email || !phone || !message) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
@@ -139,7 +140,8 @@ app.post("/admin-login",async(req,res)=>{
     console.error("Error during admin login:",error);
     return res.status(500).json({message:"Internal server error"});
   }
-})
+});
+
 app.get("/admin/dashboard", verifyAdminToken, (req, res) => {
   res.status(200).json({ message: "Welcome to the admin dashboard" });
 });
@@ -154,25 +156,7 @@ app.get("/admin/dashboard/orders",async(req,res)=>{
   };
 })
 
-// Middleware for verifying admin token
-function verifyAdminToken(req, res, next) {
-  const token = req.headers.authorization?.split(" ")[1];
 
-  if (!token) {
-    return res.status(401).json({ message: "Unauthorized" });
-  }
-
-  try {
-    const decoded = jwt.verify(token,jwtSecretKey);
-    if (decoded.role !== "admin") {
-      return res.status(403).json({ message: "Forbidden" });
-    }
-    next();
-  } catch (error) {
-    console.error("Token verification failed:", error);
-    res.status(401).json({ message: "Invalid token" });
-  }
-}
 
 mongoose
   .connect(MONGODB_URL)
