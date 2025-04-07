@@ -9,7 +9,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/admin/dashboard/orders");
+        const response = await axios.get("https://cafe-app-backend-nine.vercel.app/admin/dashboard/orders");
         setOrders(response.data);
       } catch (error) {
         setError(error.message);
