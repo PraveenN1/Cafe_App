@@ -2,24 +2,29 @@ import { React, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { ToastContainer,toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function Contact() {
   const {
     register,
     handleSubmit,
-    formState: { errors ,isSubmitting,isSubmitted,isSubmitSuccessful,submitCount},
+    formState: {
+      errors,
+      isSubmitting,
+      isSubmitted,
+      isSubmitSuccessful,
+      submitCount,
+    },
     reset,
-    
   } = useForm();
 
   const [error, setError] = useState(null);
 
-  console.log({isSubmitting,isSubmitted,isSubmitSuccessful ,submitCount,});
+  console.log({ isSubmitting, isSubmitted, isSubmitSuccessful, submitCount });
 
   const onSubmit = async (data) => {
-    console.log(data);
+    console.log({data});
     // notifySuccess();
     try {
       const response = await axios.post("https://cafe-app-backend-nine.vercel.app/contact", data);
@@ -30,31 +35,28 @@ export default function Contact() {
       setError(
         error.response?.data?.message || "Something went wrong. Try again."
       );
-      isSubmitSuccessful=false;
       notifyError();
-    }finally{
-      notifyError();
-    }
+    } 
   };
 
-  const notifySuccess=()=>{
+  const notifySuccess = () => {
     toast.success("Thank you, we will let you know soon");
-  }
+  };
 
-  const notifyError=()=>{
+  const notifyError = () => {
     toast.error("Error submitting your response");
-  }
+  };
 
-  useEffect(()=>{
-    if(isSubmitSuccessful){
+  useEffect(() => {
+    if (isSubmitSuccessful) {
       reset();
     }
-  },[isSubmitSuccessful,reset]);
+  }, [isSubmitSuccessful, reset]);
 
   return (
     <section className="mt-28 mb-5 mx-10 h-auto flex flex-col xl:flex-row gap-8 justify-center">
-      <div className="w-full flex flex-col gap-3 items-center justify-center mb-5 text-[#6b4e34]">
-        <h1 className="text-5xl lg:text-7xl font-bold mb-4">Contact Us</h1>
+      <div className="w-full flex flex-col gap-3 items-center justify-center mb-5 text-[#6F4F28]">
+        <h1 className="text-5xl lg:text-7xl font-bold mb-4 text-[#4A3C31]">Contact Us</h1>
         <p className="text-xl flex items-center gap-1">
           brewnbrewcoffees@gmail.com
         </p>
@@ -83,10 +85,10 @@ export default function Contact() {
           />
         </div>
       </div>
-      <div className="w-full md:w-[90%] lg:w-[80%] xl:w-[50%]  shadow-md p-5 rounded-xl border border-[#6b4e34] bg-[#f4ece3] mx-auto">
+      <div className="w-full md:w-[90%] lg:w-[80%] xl:w-[50%]  shadow-md p-5 rounded-xl border border-[#6b4e34] bg-[#f4f1eb] mx-auto">
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
           <div className="flex flex-col gap-2 text-[#6b4e34]">
-            <h2 className="text-3xl font-bold">Get in Touch</h2>
+            <h2 className="text-3xl font-bold text-[#4A3C31]">Get in Touch</h2>
             <h3 className="text-xl">We'd love to hear from you!</h3>
           </div>
           <div className="flex flex-col gap-4">
@@ -104,6 +106,7 @@ export default function Contact() {
                     required: "First Name is required",
                   })}
                   className="p-2 rounded-md w-full border border-[#6b4e34] bg-[#ffffff]"
+                  name="firstname"
                   placeholder="First Name"
                 />
                 {errors.firstname && (
@@ -124,8 +127,9 @@ export default function Contact() {
                   {...register("lastname", {
                     required: "Last Name is required",
                   })}
-                  className="p-2 rounded-md w-full border border-[#6b4e34] bg-[#ffffff]"
+                  className="p-2 rounded-md w-full border border-[#6b4e34]  bg-[#ffffff]"
                   placeholder="Last Name"
+                  name="lastname"
                 />
                 {errors.lastname && (
                   <p className="text-red-500 mt-1">{errors.lastname.message}</p>
@@ -146,8 +150,9 @@ export default function Contact() {
                   pattern: {
                     value: /^[\w-]+(?:\.[\w-]+)*@(?:[\w-]+\.)+[a-zA-Z]{2,}$/,
                     message: "Invalid Email Format",
-                  }   
-              })}
+                  },
+                })}
+                name="email"
                 className="p-2 rounded-md w-full border border-[#6b4e34] bg-[#ffffff]"
                 placeholder="Your email"
               />
@@ -164,6 +169,7 @@ export default function Contact() {
               </label>
               <input
                 id="phone"
+                name="phone"
                 {...register("phone")}
                 className="p-2 rounded-md w-full border border-[#6b4e34] bg-[#ffffff]"
                 placeholder="Phone Number"
@@ -181,6 +187,7 @@ export default function Contact() {
               </label>
               <textarea
                 id="message"
+                name="message"
                 {...register("message", {
                   required: "Message is required",
                   minLength: {
@@ -202,7 +209,7 @@ export default function Contact() {
               disabled={isSubmitting}
               className="w-full bg-amber-600 p-2 rounded-md text-white hover:bg-amber-700"
             >
-              Submit
+              {isSubmitting ? "Submitting..." : "Submit"}
             </button>
             <p className="text-[#6b4e34] mt-2 text-center text-sm">
               By contacting us, you agree to our{" "}
@@ -212,11 +219,7 @@ export default function Contact() {
           </div>
         </form>
       </div>
-      <ToastContainer
-        position="top-center"
-        autoClose={2000}
-        theme="colored"
-      />
+      <ToastContainer position="top-center" autoClose={2000} theme="colored" />
     </section>
   );
 }

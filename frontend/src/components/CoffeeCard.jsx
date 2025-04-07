@@ -16,7 +16,7 @@ const CoffeeCard = ({ coffee, orderCount }) => {
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : 50 }}
       transition={{ duration: 0.5 }}
-      className="card-component flex flex-col items-center p-2 rounded-lg space-y-6 border-2 shadow-md hover:shadow-2xl transition-shadow duration-300 ease-in-out"
+      className="card-component flex flex-col items-center p-[1rem] rounded-[2rem] space-y-6 border-2 shadow-md hover:shadow-2xl transition-shadow duration-300 ease-in-out"
     >
       {inView ? (
         <div className="flex flex-col items-center space-y-4 text-black">
@@ -24,10 +24,10 @@ const CoffeeCard = ({ coffee, orderCount }) => {
             <img
               src={image}
               alt={title}
-              className="rounded-lg shadow-md object-cover"
+              className="rounded-[1rem]  shadow-md object-cover"
             />
           </div>
-          <h1 className="text-center text-amber-500 font-bold text-xl sm:text-2xl tracking-wide">
+          <h1 className="text-center text-[#6F4F28] font-bold text-xl sm:text-2xl tracking-wide">
             {title}
           </h1>
           <div className="flex w-full gap-2 flex-col sm:flex-row">

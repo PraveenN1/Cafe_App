@@ -43,7 +43,7 @@ const Navbar = () => {
               to={link.to}
               className={({ isActive }) =>
                 isActive
-                  ? "border-b-4 border-amber-600"
+                  ? "border-b-4 border-amber-600 rounded-md "
                   : "hover:text-amber-600 transition-colors duration-300"
               }
             >
@@ -57,7 +57,7 @@ const Navbar = () => {
               to="/admin/dashboard"
               className={({ isActive }) =>
                 isActive
-                  ? "border-b-4 border-amber-600"
+                  ? "border-b-4 rounded-md  border-amber-600"
                   : "hover:text-amber-600 transition-colors duration-300"
               }
             >
@@ -98,7 +98,7 @@ const Navbar = () => {
           animate={{ opacity: 1, height: "auto" }}
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 0.3 }}
-          className="md:hidden bg-white shadow-md p-4 space-y-4 text-center font-semibold"
+          className="md:hidden bg-white shadow-md p-4 space-y-4 flex flex-col justify-center items-center mx-auto font-semibold"
         >
           {[
             { to: "/", label: "Home" },
@@ -112,7 +112,7 @@ const Navbar = () => {
               onClick={() => setIsOpen(false)} // Close menu on link click
               className={({ isActive }) =>
                 isActive
-                  ? "inline-block border-b-4 border-amber-600"
+                  ? "inline-block border-b-4 rounded-md border-amber-600"
                   : "block hover:text-amber-600 transition-colors duration-300"
               }
             >
@@ -127,8 +127,8 @@ const Navbar = () => {
               onClick={() => setIsOpen(false)} // Close menu on link click
               className={({ isActive }) =>
                 isActive
-                  ? "block border-b-4 border-amber-600"
-                  : "block hover:text-amber-600 transition-colors duration-300"
+                  ? "block border-b-4 rounded-md  border-amber-600"
+                  : "block hover:text-amber-600 transition-colors  duration-300"
               }
             >
               Dashboard
