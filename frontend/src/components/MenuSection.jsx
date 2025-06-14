@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { Link } from "react-router-dom";
 const MenuSection = () => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -48,8 +48,8 @@ const MenuSection = () => {
           {/* Floating decoration around button - positioned behind */}
           <div className={`absolute -inset-4 bg-gradient-to-r from-amber-400/20 to-orange-400/20 rounded-3xl blur-xl transition-opacity duration-500 -z-10 ${isHovered ? 'opacity-100' : 'opacity-0'}`}></div>
           
-          <a
-            href="/menu"
+          <Link
+            to="/menu"
             className="group relative inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-amber-600 via-orange-600 to-amber-700 text-white font-bold text-lg rounded-2xl shadow-lg hover:shadow-2xl hover:shadow-amber-500/25 transition-all duration-300 hover:scale-105 overflow-hidden"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
@@ -74,7 +74,7 @@ const MenuSection = () => {
             >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
-          </a>
+          </Link>
         </div>
 
         {/* Decorative elements */}
